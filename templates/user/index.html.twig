@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    
+       
+</style>
+
+
+
+
+<main>
+    {% for  message in app.flashes('success') %}
+        
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+    <div class="header">
+        <h1 style="color: #807575;">Gestion Des Utilisateurs</h1>
+        <div class="d-flex justify-content-between align-items-center mt-5">
+            <div >
+                
+                <form action="{{path('recherch_user')}}" >
+                    <div class="input-group">
+                        <input type="search" class="form-control rounded" placeholder="Search" name="username" />
+                        <button type="submit" class="btn btn-outline-primary">search</button>
+                    </div>
+                </form>
+                
+            </div>
+            
+
+                <a href="{{path('create_user')}}" class="btn btn-primary" >
+                <i class='bx bx-plus-circle'></i>
+                <span>Nouveau Utilisateur</span>
+            </a>
+        </div>
+    </div>
+    <table class="table table-hover mt-5" >
+        <thead>
+          <tr>
+            <th scope="col">User</th>
+            <th scope="col">Role</th>
+            <th scope="col">Email</th>
+            <th scope="col">Date Creation</th>
+            
+            
+            <th scope="col" class="text-center" colspan="2"> Actions </th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>
+                     <img src="{{asset('images/' ~ user.image )}}"  style="width:50px; border-radius: 50%; " >
+                     {{user.username}}
+                     
+                </td>
+                {% set isAdmin = false %}
+                {% set isUser = false %}
+
+                {% for role in user.roles %}
+                    {% if role == 'ROLE_ADMIN' %}
+                        {% set isAdmin = true %}
+                    {% elseif role == 'ROLE_USER' %}
+                        {% set isUser = true %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if isAdmin %}
+                    <td class="p-3">Admin</td>
+                {% elseif isUser %}
+                    <td class="p-3">User</td>
+                {% else %}
+                    <td class="p-3">Unknown Role</td>
+                {% endif %}
+                <td class="p-3">{{user.email}}</td>
+                <td class="p-3">{{ user.date_creation|date('d/m/y') }}</td>
+                <td  class="text-center p-3"><a href="{{path('delete_user',{id:user.id})}}"><i  class="fa-solid fa-trash text-danger"></i></a></td>
+                <td class="text-center p-3"><a href="{{path('edit_user',{id:user.id})}}" ><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+      </table>
+
+
+</main>
+{% endblock %}

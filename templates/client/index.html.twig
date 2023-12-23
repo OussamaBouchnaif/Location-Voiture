@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+
+
+<main>
+    {% for  message in app.flashes('success') %}
+        
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+    <div class="header">
+        <h1 style="color: #807575;">Gestion Des Clients</h1>
+            <div class="d-flex justify-content-between align-items-center mt-5">
+
+                <form action="{{path('recherch_client')}}" >
+                    <div class="input-group">
+                        <input type="search" class="form-control rounded" placeholder="Search" name="nomprenom" />
+                        <button type="submit" class="btn btn-outline-primary">search</button>
+                    </div>
+                </form>
+                
+    
+                 <a href="{{path('create_client')}}" class="btn btn-primary" >
+                    <i class='bx bx-plus-circle'></i>
+                    <span>Nouveau Client</span>
+                </a>
+            </div>
+            
+    
+       
+        
+       
+    </div>
+    <table class="table table-hover mt-5" >
+        <thead>
+          <tr>
+            
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Ville</th>
+            <th scope="col">Pays</th>
+            <th scope="col" class="text-center" colspan="2"> Actions </th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for cl in client %}
+            <tr>
+                
+                <td>{{cl.nom}}</td>
+                <td>{{cl.prenom}}</td>
+                <td>{{cl.ville}}</td>
+                <td>{{cl.pays}}</td>
+                <td  class="text-center"><a href="{{path('delete_client',{id : cl.id})}}"><i  class="fa-solid fa-trash text-danger"></i></a></td>
+                <td class="text-center"><a href="{{path('edit_client',{id : cl.id})}}" ><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
+            </tr>
+            {% endfor %}
+          
+        </tbody>
+      </table>
+     
+
+</main>
+{% endblock %}

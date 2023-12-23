@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+
+
+<main>
+    {% for  message in app.flashes('success') %}
+        
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+    <div class="header">
+        <h1 style="color: #807575;">Gestion Des Voitures</h1>
+            <div class="d-flex justify-content-between align-items-center mt-5">
+                <form action="{{path('recherch_voiture')}}" cla>
+                    <div class="input-group">
+                        <input type="search" class="form-control rounded" placeholder="Search" name="libelle" />
+                        <button type="submit" class="btn btn-outline-primary">search</button>
+                    </div>
+                </form>
+                
+                
+                <a href="{{path('create_Voiture')}}" class="btn btn-primary" >
+                        <i class='bx bx-plus-circle'></i>
+                        <span>Nouveau Voiture</span>
+                </a>
+
+                <!-- Button trigger modal Model-->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class='bx bx-plus-circle'></i>
+                    Nouveau Model
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Nouveau Model</h5>
+                                
+                            </div>
+                            <div class="modal-body">
+                            <form action="{{path('add_model')}}">
+                                <input type="text" class="form-control" placeholder="Libelle" name="libelle">
+                                <input type="submit"  class="btn btn-primary mt-2" value="Ajouter"   name="btn">
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                            
+               
+                <!-- Button trigger modal Categorie-->
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class='bx bx-plus-circle'></i>
+                        Nouveau Categorie
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Nouveau Categorie</h5>
+                                    
+                                </div>
+                                <div class="modal-body">
+                                <form action="{{path('add_categorie')}}">
+                                    <input type="text" class="form-control" placeholder="Libelle" name="libelle">
+                                    <input type="submit"  class="btn btn-primary mt-2" value="Ajouter"   name="btn">
+                                </form>     
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div>
+        </div>
+          
+    </div>
+    <table class="table table-hover mt-5" >
+        <thead>
+          <tr>
+            <th scope="col">Voiture</th>
+            <th scope="col">Date Achat</th>
+            <th scope="col">Km_compteur</th>
+            <th scope="col">Prix Location / Jour</th>
+            <th scope="col">charge Max</th>
+            <th scope="col">Reservation</th>
+            <th scope="col" class="text-center" colspan="2"> Actions </th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for vo in voiture %}
+            <tr>
+                <td>
+                     <img src="{{asset('uploads/' ~ vo.image )}}"  style="width:80px; " >
+                     
+                     {% if var == 'recherch' %}
+                        {{vo.model}}
+                        {{vo.categorie}}
+                     {% elseif var == 'afficher' %}
+                        {{vo.Model.libelle}}
+                        {{vo.Categorie.libelle}}
+                     {% endif %}
+                </td>
+                <td>{{vo.date_achat|date('d/m/y') }}</td>
+                <td>{{vo.km_compteur}}</td>
+                <td>{{vo.prix_location}}$</td>
+                <td>{{vo.charge_max}}</td>
+                
+                <td class="text-center p-3"><a href="" ><i class='bx bxs-file'></i></a></td>
+                <td  class="text-center p-3"><a href="{{path('delete_voiture',{id:vo.id})}}"><i  class="fa-solid fa-trash text-danger"></i></a></td>
+                <td class="text-center p-3"><a href="{{path('edit_voiture',{id:vo.id})}}" ><i class="fa-solid fa-pen-to-square text-warning"></i></a></td>
+                
+            </tr>
+            {% endfor %}
+          
+        </tbody>
+      </table>
+
+
+</main>
+{% endblock %}
