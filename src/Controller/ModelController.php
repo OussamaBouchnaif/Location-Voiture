@@ -19,7 +19,7 @@ class ModelController extends AbstractController
         ]);
     }
     #[Route('/addModel' ,name:'add_model')]
-    public function addCategorie(Request $request,EntityManagerInterface $manager): Response
+    public function addModel(Request $request,EntityManagerInterface $manager): Response
     {
         $libelle = $request->get('libelle');
         $model = new Model();

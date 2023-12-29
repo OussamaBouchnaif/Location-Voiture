@@ -78,7 +78,7 @@ class VoitureController extends AbstractController
             );
             return $this->redirectToRoute('affichage_Voiture');
         }
-        return $this->render('voiture/gestion.html.twig', ['form'=>$form->createView()]);
+        return $this->render('voiture/ajouter.html.twig', ['form'=>$form->createView()]);
     }
 
     #[Route('editVoiture/{id}' , name:'edit_voiture')]
@@ -126,7 +126,7 @@ class VoitureController extends AbstractController
             );
             return $this->redirectToRoute('affichage_Voiture');
         }
-        return $this->render('voiture/gestion.html.twig', ['form'=>$form->createView()]);
+        return $this->render('voiture/modifier.html.twig', ['form'=>$form->createView()]);
     }
 
     #[Route('deleteVoiture/{id}' , name:'delete_voiture')]
@@ -143,7 +143,7 @@ class VoitureController extends AbstractController
     }
 
     #[Route('/recherchVoiture',name:'recherch_voiture')]
-    public function recherchClientAction(VoitureRepository $voitureRepository, Request $request):Response
+    public function recherchAction(VoitureRepository $voitureRepository, Request $request):Response
     {
         $libelle = $request->get('libelle');
         $voiture = $voitureRepository->findVoiture($libelle);

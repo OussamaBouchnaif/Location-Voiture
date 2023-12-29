@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block body %}
+
+<main style="width:60%;margin: auto; " class="container p-3">
+    
+    <div class="header p-5 container"  style="box-shadow: 0 5px 10px rgba(25, 18, 105, 0.2); background-color: white;" >
+        <div class="left">
+            <h1 style="color: #4070f4;" class="">Modifier Client</h1>
+        </div>
+    
+        <div class="container mt-5 " >
+            {{ form(form) }}
+        </div>
+    </div>
+    
+
+</main>
+{% endblock %}

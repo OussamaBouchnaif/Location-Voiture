@@ -56,7 +56,7 @@ class ReservationController extends AbstractController
             );
             return $this->redirectToRoute('affichage_reservation');
         }
-        return $this->render('reservation/gestion.html.twig',['form'=> $form->createView()]);
+        return $this->render('reservation/ajouter.html.twig',['form'=> $form->createView()]);
     }
    /* #[Route('createReservationid/{id}' ,name:'create_reservationid')]
     public function createReservationid(int $id,Request $request,EntityManagerInterface $manager,  ReservationRepository $reservationRepository)
@@ -94,7 +94,7 @@ class ReservationController extends AbstractController
             );
             return $this->redirectToRoute('affichage_reservation');
         }
-        return $this->render('reservation/gestion.html.twig',['form'=> $form->createView()]);
+        return $this->render('reservation/modifier.html.twig',['form'=> $form->createView()]);
     }
     #[Route('deleteReservation/{id}' ,name:'delete_reservation')]
     public function deleteReservation(int $id, EntityManagerInterface $manager,  ReservationRepository $reservationRepository)
@@ -111,7 +111,7 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/recherchReservation',name:'recherch_reservation')]
-    public function recherchClientAction(ReservationRepository $reservationRepository, Request $request):Response
+    public function recherchAction(ReservationRepository $reservationRepository, Request $request):Response
     {
         $value = $request->get('value');
         $reservation = $reservationRepository->findReservation($value);

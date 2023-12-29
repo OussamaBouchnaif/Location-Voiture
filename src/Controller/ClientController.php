@@ -53,7 +53,7 @@ class ClientController extends AbstractController
             
             return $this->redirectToRoute('affichage_Client');
         }
-        return $this->render('client/gestion.html.twig', [
+        return $this->render('client/ajouter.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -77,14 +77,14 @@ class ClientController extends AbstractController
             
             return $this->redirectToRoute('affichage_Client');
         }
-        return $this->render('client/gestion.html.twig', [
+        return $this->render('client/modifier.html.twig', [
             'form' => $form->createView(),
         ]);
         
     }
 
     #[Route('/deleteClient/{id}' , name : 'delete_client')]
-    public function deleteUserAction(EntityManagerInterface $manager ,int $id,ClientRepository $clientRepository):Response
+    public function deleteAction(EntityManagerInterface $manager ,int $id,ClientRepository $clientRepository):Response
     {
         $user = $clientRepository->findOneBy(["id" => $id ]);
         $manager->remove($user);

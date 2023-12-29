@@ -55,7 +55,7 @@ class UserController extends AbstractController
 
 
     #[Route('createUser' , name:'create_user')]
-    public function createVoitureAction(Request $request, SluggerInterface $slugger,EntityManagerInterface $manager):Response
+    public function createAction(Request $request, SluggerInterface $slugger,EntityManagerInterface $manager):Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -100,13 +100,13 @@ class UserController extends AbstractController
             );
             return $this->redirectToRoute('affichage_user');
         }
-        return $this->render('user/gestion.html.twig', ['form'=>$form->createView()]);
+        return $this->render('user/ajouter.html.twig', ['form'=>$form->createView()]);
     }
 
 
     #[Route('editUser/{id}' , name:'edit_user')]
     
-    public function editUserAction(int $id,UserRepository $userRepository,Request $request, SluggerInterface $slugger,EntityManagerInterface $manager):Response
+    public function editAction(int $id,UserRepository $userRepository,Request $request, SluggerInterface $slugger,EntityManagerInterface $manager):Response
     {
         $user = $userRepository->findOneBy(['id'=>$id]);
         $form = $this->createForm(UserType::class, $user);
@@ -153,11 +153,11 @@ class UserController extends AbstractController
             );
             return $this->redirectToRoute('affichage_user');
         }
-        return $this->render('user/gestion.html.twig', ['form'=>$form->createView()]);
+        return $this->render('user/modifier.html.twig', ['form'=>$form->createView()]);
     }
 
     #[Route('deleteUser/{id}' ,name:'delete_user')]
-    public function deleteUserAction(int $id,UserRepository $userRepository,EntityManagerInterface $manager):Response
+    public function deleteAction(int $id,UserRepository $userRepository,EntityManagerInterface $manager):Response
     {
         $user = $userRepository->findOneBy(['id' => $id]);
         $manager->remove($user);

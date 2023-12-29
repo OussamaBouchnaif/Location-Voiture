@@ -46,7 +46,7 @@ class AgenceController extends AbstractController
             );
             return $this->redirectToRoute('affichage_Agence');
         }
-        return $this->render('agence/gestion.html.twig', ['form'=>$form->createView()]);
+        return $this->render('agence/ajouter.html.twig', ['form'=>$form->createView()]);
 
     }
 
@@ -67,11 +67,11 @@ class AgenceController extends AbstractController
             );
             return $this->redirectToRoute('affichage_Agence');
         }
-        return $this->render('agence/gestion.html.twig', ['form'=>$form->createView()]);
+        return $this->render('agence/modifier.html.twig', ['form'=>$form->createView()]);
     }
 
     #[Route('deleteAgence/{id}' , name:'delete_agence')]
-    public function deleteAgenceAction(int $id,EntityManagerInterface $manager,AgenceRepository $agenceRepository):Response
+    public function deleteAgence(int $id,EntityManagerInterface $manager,AgenceRepository $agenceRepository):Response
     {
         $agence = $agenceRepository->findOneBy(['id' => $id]);
         $manager->remove($agence);
